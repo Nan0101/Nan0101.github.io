@@ -1,0 +1,60 @@
+/* ── Shared colors ── */
+:root {
+  --ink: #0A0A0F;
+  --paper: #F7F5F0;
+  --paper-dim: #EAE6DF;
+  --line: #1A1A22;
+
+  /* Nebula palette */
+  --nebula-deep: #1B0B2E;
+  --nebula-plum: #3D1B5C;
+  --nebula-violet: #6D28D9;
+  --nebula-magenta: #C026D3;
+  --nebula-glow: #E879F9;
+  --nebula-mist: #FAE8FF;
+
+  /* Typography */
+  --font-display: 'Geist', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
+  --font-hand: 'Caveat', cursive;
+  --font-retro: 'DotGothic16', monospace;
+  --font-devanagari: 'Noto Sans Devanagari', sans-serif;
+  --font-gujarati: 'Noto Sans Gujarati', sans-serif;
+  --font-japanese: 'Noto Sans JP', sans-serif;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Semantic theme — light (default) */
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --accent: var(--nebula-violet);
+}
+
+html[data-theme="dark"] {
+  --bg: var(--ink);
+  --fg: var(--paper);
+  --accent: var(--nebula-magenta);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: background-color 200ms, color 200ms;
+}

@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.tsx';
+
+interface Props {
+  title?: string;
+}
+const { title = 'nannomnom' } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@300..700&family=Inter:wght@300..700&family=Caveat:wght@400..700&family=DotGothic16&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Gujarati:wght@400;600&family=Noto+Sans+JP:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header style="
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--line);
+    ">
+      <a href="/" style="font-family: var(--font-display); font-weight: 700; text-decoration: none; color: var(--fg);">
+        nannomnom
+      </a>
+
+      <nav style="display: flex; gap: var(--space-5); font-family: var(--font-body); font-size: 0.9rem;">
+        <a href="/work" style="color: var(--fg); text-decoration: none;">work</a>
+        <a href="/writing" style="color: var(--fg); text-decoration: none;">writing</a>
+        <a href="/about" style="color: var(--fg); text-decoration: none;">about</a>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: var(--space-3);">
+        <ThemeToggle client:load />
+        <button
+          aria-label="Switch language"
+          style="font-family: var(--font-mono); font-size: 0.85rem; cursor: pointer;"
+        >
+          EN
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer style="
+      padding: var(--space-6);
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--fg);
+      opacity: 0.6;
+    ">
+      hello · नमस्ते · નમસ્તે · こんにちは
+    </footer>
+  </body>
+</html>

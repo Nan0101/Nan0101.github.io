@@ -1,0 +1,101 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+}
+const { title = "nannomnom's space" } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@300..700&family=Inter:wght@300..700&family=Caveat:wght@400..700&family=DotGothic16&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Gujarati:wght@400;600&family=Noto+Sans+JP:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="nebula-body">
+    <!-- SVG grain overlay -->
+    <div class="grain-overlay" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <filter id="grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#grain)" opacity="0.08" />
+      </svg>
+    </div>
+
+    <header style="
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-6);
+    ">
+      <div>
+        <span style="font-family: var(--font-hand); font-size: 1.8rem; color: var(--nebula-glow);">
+          nannomnom's
+        </span>
+        <nav style="display: flex; gap: var(--space-4); margin-top: var(--space-1); font-family: var(--font-body); font-size: 0.85rem;">
+          <a href="/shishin" style="color: var(--nebula-mist); text-decoration: none; opacity: 0.8;">home</a>
+          <a href="/shishin/reading" style="color: var(--nebula-mist); text-decoration: none; opacity: 0.8;">reading</a>
+          <a href="/shishin/music" style="color: var(--nebula-mist); text-decoration: none; opacity: 0.8;">music</a>
+          <a href="/shishin/journal" style="color: var(--nebula-mist); text-decoration: none; opacity: 0.8;">journal</a>
+        </nav>
+      </div>
+
+      <a
+        href="/"
+        style="
+          font-family: var(--font-mono);
+          font-size: 0.8rem;
+          color: var(--nebula-mist);
+          text-decoration: none;
+          border: 1px solid var(--nebula-plum);
+          padding: var(--space-1) var(--space-3);
+          border-radius: var(--radius-full);
+          opacity: 0.7;
+        "
+      >
+        ← portal
+      </a>
+    </header>
+
+    <main style="position: relative; z-index: 10;">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  .nebula-body {
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse at 20% 50%, var(--nebula-plum) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 20%, var(--nebula-violet) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, var(--nebula-magenta) 0%, transparent 45%),
+      radial-gradient(ellipse at 10% 90%, var(--nebula-deep) 0%, transparent 60%),
+      var(--nebula-deep);
+    color: var(--nebula-mist);
+    position: relative;
+  }
+
+  .grain-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+</style>
