@@ -3,7 +3,10 @@
     "allow": [
       "Bash(npm create *)",
       "Bash(npm install *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\(Object.keys\\(l\\).filter\\(k => /linked|linked|github|instagram|mail|book|file/i.test\\(k\\)\\).slice\\(0,20\\)\\)\")",
+      "Bash(node -e \"const l = require\\('lucide-react'\\); const keys = Object.keys\\(l\\); console.log\\(keys.filter\\(k => /^\\(Linkedin|LinkedIn|Github|GitHub|Instagram|Mail|BookOpen|FileText\\)/i.test\\(k\\)\\)\\)\")",
+      "Bash(node -e \"const l = require\\('lucide-react'\\); const keys = Object.keys\\(l\\); console.log\\(keys.filter\\(k => /^\\(Linked|Github|Git|Insta\\)/i.test\\(k\\)\\).slice\\(0,15\\)\\)\")"
     ]
   }
 }

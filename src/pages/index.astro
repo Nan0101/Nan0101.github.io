@@ -1,20 +1,183 @@
 ---
 import ProLayout from '../layouts/ProLayout.astro';
+import NameCycle from '../components/NameCycle.tsx';
+import HeroPhoto from '../components/HeroPhoto.tsx';
+import ScrollReveal from '../components/ScrollReveal.tsx';
 ---
 
 <ProLayout title="nannomnom">
-  <section style="
-    padding: var(--space-10) var(--space-6);
-    text-align: center;
-  ">
-    <h1 style="
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 6vw, 4rem);
-      font-weight: 700;
-      color: var(--fg);
-      margin: 0;
-    ">
-      Tokens loaded — nannomnom
-    </h1>
+  <section class="hero">
+    <div class="hero-left">
+      <ScrollReveal client:load delay={0}>
+        <h1 class="name">
+          <NameCycle client:load />
+        </h1>
+      </ScrollReveal>
+      <ScrollReveal client:load delay={0.1}>
+        <p class="role">Software Engineer · AI/ML · Buffalo</p>
+      </ScrollReveal>
+      <ScrollReveal client:load delay={0.2}>
+        <p class="pitch">
+          Building thoughtful systems at the intersection of data, language, and the way humans actually think.
+        </p>
+      </ScrollReveal>
+      <ScrollReveal client:load delay={0.3}>
+        <p class="subtext">(multi-script / multi-mode)</p>
+      </ScrollReveal>
+    </div>
+    <div class="hero-right">
+      <ScrollReveal client:load delay={0.15}>
+        <HeroPhoto client:load />
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </div>
+
+  <section class="work">
+    <h2 class="section-title">Selected Work</h2>
+    <div class="cards-row">
+      {[1, 2, 3].map(n => (
+        <div class="project-card">
+          <p class="card-label">Project coming soon</p>
+        </div>
+      ))}
+    </div>
   </section>
 </ProLayout>
+
+<style>
+  .hero {
+    min-height: calc(100vh - 60px);
+    display: grid;
+    grid-template-columns: 60fr 40fr;
+    gap: var(--space-8);
+    align-items: center;
+    padding: var(--space-8);
+    position: relative;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .name {
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    margin: 0;
+  }
+
+  .role {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--nebula-violet);
+    margin: 0;
+  }
+
+  .pitch {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    max-width: 48ch;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  .subtext {
+    font-size: 0.9rem;
+    font-style: italic;
+    opacity: 0.5;
+    margin: 0;
+  }
+
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scroll-cue {
+    display: flex;
+    justify-content: center;
+    padding: var(--space-4) 0;
+    opacity: 0.4;
+    color: var(--fg);
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  .work {
+    padding: var(--space-8);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--space-6);
+  }
+
+  .cards-row {
+    display: flex;
+    gap: var(--space-5);
+    overflow-x: auto;
+    padding-bottom: var(--space-4);
+    scroll-snap-type: x mandatory;
+  }
+
+  .cards-row::-webkit-scrollbar { height: 4px; }
+  .cards-row::-webkit-scrollbar-track { background: var(--paper-dim); }
+  .cards-row::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+
+  .project-card {
+    flex: 0 0 300px;
+    height: 200px;
+    background: var(--paper-dim, #EAE6DF);
+    border-radius: var(--radius-md);
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+  }
+
+  .card-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    opacity: 0.4;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: var(--space-6);
+    }
+
+    .hero-right {
+      order: -1;
+      max-width: 240px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .work {
+      padding: var(--space-6);
+    }
+  }
+</style>

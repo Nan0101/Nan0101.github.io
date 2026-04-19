@@ -1,0 +1,244 @@
+---
+import LangToggle from './LangToggle.tsx';
+import ThemeToggle from './ThemeToggle.tsx';
+
+const navPages = ['projects', 'resume', 'blog', 'leadership', 'contact'];
+---
+
+<nav class="site-nav">
+  <a class="nav-logo" href="/">nannomnom</a>
+
+  <ul class="nav-links">
+    {navPages.map(page => (
+      <li>
+        <a href={`/${page}`} class="nav-link">
+          {page}
+          <svg class="squiggle" viewBox="0 0 60 10" preserveAspectRatio="none" aria-hidden="true">
+            <path class="squiggle-path" d="M0,5 Q7.5,1 15,5 Q22.5,9 30,5 Q37.5,1 45,5 Q52.5,9 60,5" />
+          </svg>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="nav-actions">
+    <LangToggle client:load />
+    <ThemeToggle client:load />
+  </div>
+
+  <button class="hamburger" aria-label="open menu" aria-expanded="false">
+    <span class="ham-bar"></span>
+    <span class="ham-bar"></span>
+    <span class="ham-bar"></span>
+  </button>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <button class="mobile-close" aria-label="close menu">✕</button>
+    <ul class="mobile-links">
+      {navPages.map(page => (
+        <li><a href={`/${page}`} class="mobile-link">{page}</a></li>
+      ))}
+    </ul>
+    <div class="mobile-actions">
+      <LangToggle client:load />
+      <ThemeToggle client:load />
+    </div>
+  </div>
+</nav>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-6);
+    transition: background 0.2s, border-color 0.2s, backdrop-filter 0.2s;
+    border-bottom: 1px solid transparent;
+  }
+
+  .site-nav.scrolled {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    border-bottom-color: var(--line);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    color: var(--fg);
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    position: relative;
+    text-decoration: none;
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding-bottom: 4px;
+  }
+
+  .squiggle {
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    overflow: visible;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .squiggle-path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 80;
+    stroke-dashoffset: 80;
+    transition: stroke-dashoffset 0.35s ease;
+  }
+
+  .nav-link:hover .squiggle {
+    opacity: 1;
+  }
+
+  .nav-link:hover .squiggle-path {
+    stroke-dashoffset: 0;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-1);
+  }
+
+  .ham-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--fg);
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  /* Mobile menu overlay */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--bg);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .mobile-menu.is-open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .mobile-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-6);
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--fg);
+  }
+
+  .mobile-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .mobile-link {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+
+  .mobile-actions {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  @media (max-width: 767px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+  }
+</style>
+
+<script>
+  const nav = document.querySelector('.site-nav');
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  }
+
+  const hamburger = document.querySelector('.hamburger');
+  const closeBtn = document.querySelector('.mobile-close');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  function openMenu() {
+    mobileMenu?.classList.add('is-open');
+    mobileMenu?.setAttribute('aria-hidden', 'false');
+    hamburger?.setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu() {
+    mobileMenu?.classList.remove('is-open');
+    mobileMenu?.setAttribute('aria-hidden', 'true');
+    hamburger?.setAttribute('aria-expanded', 'false');
+  }
+
+  hamburger?.addEventListener('click', openMenu);
+  closeBtn?.addEventListener('click', closeMenu);
+
+  // Close on mobile link click
+  mobileMenu?.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+</script>

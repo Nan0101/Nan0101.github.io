@@ -1,9 +1,10 @@
 ---
 import '../styles/global.css';
-import ThemeToggle from '../components/ThemeToggle.tsx';
+import Nav from '../components/Nav.astro';
 import Portal from '../components/Portal.tsx';
 import Cat from '../components/Cat.tsx';
 import PortalReveal from '../components/PortalReveal.tsx';
+import SocialLinks from '../components/SocialLinks.tsx';
 
 interface Props {
   title?: string;
@@ -28,51 +29,60 @@ const { title = 'nannomnom' } = Astro.props;
     />
   </head>
   <body>
-    <header style="
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: var(--space-4) var(--space-6);
-      border-bottom: 1px solid var(--line);
-    ">
-      <a href="/" style="font-family: var(--font-display); font-weight: 700; text-decoration: none; color: var(--fg);">
-        nannomnom
-      </a>
-
-      <nav style="display: flex; gap: var(--space-5); font-family: var(--font-body); font-size: 0.9rem;">
-        <a href="/work" style="color: var(--fg); text-decoration: none;">work</a>
-        <a href="/writing" style="color: var(--fg); text-decoration: none;">writing</a>
-        <a href="/about" style="color: var(--fg); text-decoration: none;">about</a>
-      </nav>
-
-      <div style="display: flex; align-items: center; gap: var(--space-3);">
-        <ThemeToggle client:load />
-        <button
-          aria-label="Switch language"
-          style="font-family: var(--font-mono); font-size: 0.85rem; cursor: pointer;"
-        >
-          EN
-        </button>
-      </div>
-    </header>
+    <Nav />
 
     <main>
       <slot />
     </main>
 
-    <footer style="
-      padding: var(--space-6);
-      border-top: 1px solid var(--line);
-      text-align: center;
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      color: var(--fg);
-      opacity: 0.6;
-    ">
-      hello · नमस्ते · નમસ્તે · こんにちは
+    <footer>
+      <span style="font-family: var(--font-body); font-size: 0.85rem; opacity: 0.6;">
+        © 2026 Nandini Soni
+      </span>
+      <span style="font-size: 0.85rem; opacity: 0.7;">
+        <span style="font-family: var(--font-body)">hello</span>
+        {' · '}
+        <span style="font-family: var(--font-devanagari)">नमस्ते</span>
+        {' · '}
+        <span style="font-family: var(--font-gujarati)">નમસ્તે</span>
+        {' · '}
+        <span style="font-family: var(--font-japanese)">こんにちは</span>
+      </span>
+      <SocialLinks client:load />
     </footer>
+
     <Portal client:load />
     <Cat client:load />
     <PortalReveal client:load />
   </body>
 </html>
+
+<style>
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  footer {
+    padding: var(--space-5) var(--space-6);
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  @media (max-width: 600px) {
+    footer {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+</style>
