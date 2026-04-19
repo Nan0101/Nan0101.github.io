@@ -1,5 +1,8 @@
 ---
 import '../styles/global.css';
+import ReturnButton from '../components/ReturnButton.tsx';
+import Portal from '../components/Portal.tsx';
+import PortalReveal from '../components/PortalReveal.tsx';
 
 interface Props {
   title?: string;
@@ -56,26 +59,14 @@ const { title = "nannomnom's space" } = Astro.props;
         </nav>
       </div>
 
-      <a
-        href="/"
-        style="
-          font-family: var(--font-mono);
-          font-size: 0.8rem;
-          color: var(--nebula-mist);
-          text-decoration: none;
-          border: 1px solid var(--nebula-plum);
-          padding: var(--space-1) var(--space-3);
-          border-radius: var(--radius-full);
-          opacity: 0.7;
-        "
-      >
-        ← portal
-      </a>
+      <ReturnButton client:load />
     </header>
 
     <main style="position: relative; z-index: 10;">
       <slot />
     </main>
+    <Portal client:load />
+    <PortalReveal client:load />
   </body>
 </html>
 

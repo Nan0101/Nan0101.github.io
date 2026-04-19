@@ -1,0 +1,22 @@
+---
+import PersonalLayout from '../../layouts/PersonalLayout.astro';
+---
+
+<PersonalLayout title="you found the passage — nannomnom">
+  <div class="passage-message">
+    <p>you found the passage</p>
+  </div>
+</PersonalLayout>
+
+<style>
+  .passage-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    font-family: var(--font-hand);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+    color: var(--nebula-mist);
+  }
+</style>

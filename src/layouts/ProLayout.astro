@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
 import ThemeToggle from '../components/ThemeToggle.tsx';
+import Portal from '../components/Portal.tsx';
+import Cat from '../components/Cat.tsx';
+import PortalReveal from '../components/PortalReveal.tsx';
 
 interface Props {
   title?: string;
@@ -68,5 +71,8 @@ const { title = 'nannomnom' } = Astro.props;
     ">
       hello · नमस्ते · નમસ્તે · こんにちは
     </footer>
+    <Portal client:load />
+    <Cat client:load />
+    <PortalReveal client:load />
   </body>
 </html>
