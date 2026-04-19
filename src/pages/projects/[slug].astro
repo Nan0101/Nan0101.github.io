@@ -1,0 +1,323 @@
+---
+import ProLayout from '../../layouts/ProLayout.astro';
+import MetricCounter from '../../components/MetricCounter.tsx';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(p => ({ params: { slug: p.data.slug } }));
+}
+
+const { slug } = Astro.params;
+const allProjects = await getCollection('projects');
+const sorted = allProjects.sort((a, b) => b.data.year - a.data.year);
+const idx = sorted.findIndex(p => p.data.slug === slug);
+const project = sorted[idx];
+const { Content } = await render(project);
+
+const prev = sorted[idx + 1] ?? null;
+const next = sorted[idx - 1] ?? null;
+const { title, year, tags, stack, hero, problem, approach, outcome, metrics, github, demo, summary } = project.data;
+---
+
+<ProLayout title={`${title} — nannomnom`}>
+  <article class="case-study">
+
+    <header class="cs-hero">
+      <a href="/projects" class="back-link">← All projects</a>
+      <div class="cs-meta">
+        <span class="cs-year">{year}</span>
+        {tags.map(t => <span class="cs-tag">{t}</span>)}
+      </div>
+      <h1 class="cs-title">{title}</h1>
+      <p class="cs-summary">{summary}</p>
+      {hero && <img src={hero} alt={title} class="cs-hero-img" />}
+    </header>
+
+    <div class="cs-content">
+      <section class="cs-section">
+        <h2>Problem</h2>
+        <p>{problem}</p>
+      </section>
+
+      <section class="cs-section">
+        <h2>Approach</h2>
+        <p>{approach}</p>
+      </section>
+
+      <section class="cs-section">
+        <h2>Stack</h2>
+        <div class="stack-chips">
+          {stack.map(s => <span class="chip">{s}</span>)}
+        </div>
+      </section>
+
+      <section class="cs-section">
+        <h2>Outcome</h2>
+        <p>{outcome}</p>
+      </section>
+
+      {metrics && metrics.length > 0 && (
+        <div class="metrics-row">
+          {metrics.map(m => (
+            <MetricCounter client:visible value={m.value} label={m.label} />
+          ))}
+        </div>
+      )}
+
+      <div class="cs-body prose">
+        <Content />
+      </div>
+
+      {(github || demo) && (
+        <div class="cs-links">
+          {github && (
+            <a href={github} target="_blank" rel="noopener noreferrer" class="cs-link-btn">
+              GitHub →
+            </a>
+          )}
+          {demo && (
+            <a href={demo} target="_blank" rel="noopener noreferrer" class="cs-link-btn">
+              Live Demo →
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+
+    <nav class="cs-nav">
+      <a href="/projects" class="cs-nav-all">← All projects</a>
+      <div class="cs-prev-next">
+        {prev && (
+          <a href={`/projects/${prev.data.slug}`} class="cs-nav-link prev">
+            <span class="nav-dir">← Previous</span>
+            <span class="nav-title">{prev.data.title}</span>
+          </a>
+        )}
+        {next && (
+          <a href={`/projects/${next.data.slug}`} class="cs-nav-link next">
+            <span class="nav-dir">Next →</span>
+            <span class="nav-title">{next.data.title}</span>
+          </a>
+        )}
+      </div>
+    </nav>
+  </article>
+</ProLayout>
+
+<style>
+  .case-study {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-8);
+  }
+
+  .cs-hero {
+    margin-bottom: var(--space-8);
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--fg);
+    opacity: 0.5;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: var(--space-5);
+    transition: opacity 0.15s;
+  }
+
+  .back-link:hover { opacity: 1; }
+
+  .cs-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .cs-year {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    opacity: 0.5;
+  }
+
+  .cs-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    background: color-mix(in srgb, var(--nebula-violet) 15%, transparent);
+    color: var(--nebula-violet);
+    border: 1px solid color-mix(in srgb, var(--nebula-violet) 30%, transparent);
+  }
+
+  .cs-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin: 0 0 var(--space-4);
+  }
+
+  .cs-summary {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    line-height: 1.6;
+    opacity: 0.7;
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .cs-hero-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    margin-top: var(--space-6);
+  }
+
+  .cs-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-7);
+  }
+
+  .cs-section h2 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--space-3);
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+  }
+
+  .cs-section p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .stack-chips {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    background: var(--paper-dim, #EAE6DF);
+    border: 1px solid var(--line);
+  }
+
+  .metrics-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-9);
+    flex-wrap: wrap;
+    padding: var(--space-7) 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cs-body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    opacity: 0.85;
+  }
+
+  .cs-links {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .cs-link-btn {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line);
+    color: var(--fg);
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .cs-link-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .cs-nav {
+    margin-top: var(--space-9);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .cs-nav-all {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--fg);
+    opacity: 0.5;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .cs-nav-all:hover { opacity: 1; }
+
+  .cs-prev-next {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .cs-nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-decoration: none;
+    color: var(--fg);
+    max-width: 240px;
+  }
+
+  .cs-nav-link.next {
+    text-align: right;
+    margin-left: auto;
+  }
+
+  .nav-dir {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    opacity: 0.4;
+  }
+
+  .nav-title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 500;
+    opacity: 0.8;
+    transition: opacity 0.15s;
+  }
+
+  .cs-nav-link:hover .nav-title { opacity: 1; }
+
+  @media (max-width: 600px) {
+    .case-study { padding: var(--space-5); }
+    .metrics-row { gap: var(--space-6); }
+  }
+</style>

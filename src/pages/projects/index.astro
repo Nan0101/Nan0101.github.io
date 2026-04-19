@@ -1,0 +1,59 @@
+---
+import ProLayout from '../../layouts/ProLayout.astro';
+import ProjectFilter from '../../components/ProjectFilter.tsx';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const projectData = allProjects
+  .sort((a, b) => b.data.year - a.data.year)
+  .map(p => ({
+    title: p.data.title,
+    slug: p.data.slug,
+    year: p.data.year,
+    tags: p.data.tags,
+    stack: p.data.stack,
+    summary: p.data.summary,
+    thumbnail: p.data.thumbnail,
+  }));
+---
+
+<ProLayout title="Projects — nannomnom">
+  <section class="projects-page">
+    <header class="page-header">
+      <h1 class="page-title">Projects</h1>
+      <p class="page-intro">A selection of systems, models, and explorations.</p>
+    </header>
+    <ProjectFilter client:load projects={projectData} />
+  </section>
+</ProLayout>
+
+<style>
+  .projects-page {
+    padding: var(--space-8) var(--space-8);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    margin-bottom: var(--space-7);
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: 0 0 var(--space-3);
+  }
+
+  .page-intro {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .projects-page { padding: var(--space-6); }
+  }
+</style>
