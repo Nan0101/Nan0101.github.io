@@ -20,6 +20,8 @@ export default function NameCycle({
   hi = 'नंदिनी',
   gu = 'નંદિની',
   ja = 'ナンディニ',
+  ta = 'நந்தினி',
+  ru = 'Нандини'
 }: Props) {
   const scripts = [en, hi, gu, ja];
   const [current, setCurrent] = useState(0);
