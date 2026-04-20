@@ -49,7 +49,7 @@ export default function HeroPhoto() {
           />
         ) : (
           <img
-            src="/assets/NANDINI_SONI_PHOTO_NEW.png"
+            src="/photos/hero.jpg"
             alt="Nandini Soni"
             onError={() => setImgError(true)}
             style={{
