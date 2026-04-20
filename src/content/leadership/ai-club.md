@@ -1,10 +1,10 @@
 ---
-role: Co-Founder & President
-org: UB AI/ML Student Club
-dates: 2020 – 2021
+role: Employee Engagement SPOC
+org: Bank of America
+dates: 2023 - 2024
 impact:
-  - Co-founded the club from scratch; grew membership to 120+ students across CS and Engineering.
-  - Organised 12 speaker events with researchers from CMU, Google Brain, and local industry.
-  - Led hands-on workshops on PyTorch, Hugging Face, and MLOps; all sessions open-sourced on GitHub.
-  - Secured $3,000 in departmental funding for compute credits and event operations.
+  - Appointed SPOC to scale team culture and engagement across 4 distributed engineering hubs (Mumbai, Gandhinagar, Gurugram, Chennai)
+  - Partnered with senior leadership to implement a new engagement roadmap, measurably improving team sentiment and retention.
+  - Designed virtual, hybrid, and in-person team building initiatives alongside a team
+  - Orchestrated 6+ cross-location initiatives — including Leadership Townhalls and D&I forums—leveraging a mix of virtual and hybrid frameworks to drive cross-functional collaboration between technical workstreams.
 ---
