@@ -1,5 +1,5 @@
 ---
-role: ESG(Environmental, Social and Governance) Event Manager and Communications Lead
+role: ESG Event Manager and Communications Lead
 org: Bank of America
 dates: 2023 - 2024
 impact:
