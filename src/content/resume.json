@@ -1,63 +1,66 @@
 {
-  "summary": "Software Engineer with a focus on AI/ML systems, data pipelines, and language-aware applications. Experienced in building production-grade backends, semantic search infrastructure, and LLM-powered products. Comfortable across the stack — from GPU clusters to React — with a particular interest in how language models reason and fail.",
+  "summary": "Software Engineer with 3+ years building enterprise production systems at Bank of America and graduate-level research spanning NLP, multimodal models, and retrieval-augmented pipelines. I design and ship end-to-end solutions – from data ingestion and content enrichment through model evaluation, deployment, and iteration – with a consistent focus on accuracy, scalability, and communicating findings to both technical and non-technical stakeholders.",
   "experience": [
     {
-      "role": "Software Engineer II — AI/ML",
-      "company": "Acme Systems",
-      "dates": "2023 – Present",
-      "location": "Buffalo, NY (Hybrid)",
+      "role": "Software Engineer I A — Python",
+      "company": "Bank of America",
+      "dates": "July '21 – Nove '24",
+      "location": "India",
       "bullets": [
-        "Designed and shipped a context-aware RAG pipeline serving 10k+ daily queries at sub-200ms p95 latency.",
-        "Reduced embedding index rebuild time by 68% through chunking strategy and incremental upsert logic.",
-        "Led evaluation framework for LLM output quality across 5 product verticals; drove prompt iteration cycles.",
-        "Mentored 2 junior engineers through biweekly code reviews and architectural walkthroughs."
+        "Architected a Python-based three-tier data processing framework (ingestion→transformation→distribution) by migrating a legacy .NET system, integrating structured financial data from Bloomberg, Reuters, and internal sources.",
+        "Designed data ingestion, validation, and transformation pipelines to standardize heterogeneous data (schema inconsistencies, missing values, real-time and batch feeds), reducing manual reconciliation and downstream errors.",
+        "Implemented multithreaded parallel processing to optimize ingestion, transformation, and distribution, reducing end-to-end latency under peak load.",
+        "Built and automated unit/integration testing with CI/CD pipelines (∼80% test coverage), and productionized the system with scheduling, monitoring, and fault-handling to ensure consistent, reliable delivery of time-sensitive data at high volume.",
+        "Designed and implemented validation and normalization pipelines to reconcile schema inconsistencies and mixed batch/real-time feeds across multiple sources—reducing manual reconciliation and downstream data errors.",
+        "Mentored 2 junior engineers through knowledge transfer and code reviews/walkthroughs."
       ]
     },
     {
-      "role": "Software Engineer — Data Platform",
-      "company": "Meridian Analytics",
-      "dates": "2021 – 2023",
+      "role": "Systems Engineer Intern",
+      "company": "Infosys Ltd.",
+      "dates": "Feb ’21 – May ’21",
       "location": "Remote",
       "bullets": [
-        "Built a real-time data pipeline ingesting 2M events/day using Kafka, Flink, and Delta Lake.",
-        "Migrated legacy ETL jobs from bash + cron to Airflow DAGs, cutting failure rate from 12% to 0.4%.",
-        "Authored internal Python SDK adopted by 8 engineering teams for data access and schema validation.",
-        "Partnered with ML team to productionize 3 classifiers (precision ≥ 0.91) via FastAPI microservices."
+        "Developed backend services using Spring Boot (Java) and RESTful APIs for an e-commerce application; gained exposure to scalable service design and distributed API integration patterns."
       ]
     },
     {
-      "role": "Software Engineer Intern",
-      "company": "Cascade Labs",
-      "dates": "Summer 2020",
-      "location": "San Francisco, CA",
+      "role": "System Administration Intern",
+      "company": "Vectra Technosoft Pvt. Ltd.",
+      "dates": "Summer 2019",
+      "location": "Chennai,TN, India",
       "bullets": [
-        "Built a full-stack admin dashboard (React + Django) for managing ML training job queues.",
-        "Implemented a lightweight feature flag system used across 4 internal services by end of internship."
+        "Explored containerization workflows using Docker and Kubernetes to support modern deployment pipelines; assisted in OS upgrade from RHEL 7 to RHEL 8."
       ]
     }
   ],
   "education": [
     {
-      "degree": "M.S. Computer Science — Machine Learning track",
+      "degree": "M.S. Artificial Intelligence",
       "school": "University at Buffalo (SUNY)",
-      "dates": "2019 – 2021",
-      "notes": "Thesis: Multilingual Entity Linking in Low-Resource Settings. GPA 3.9."
+      "dates": "Jan '25 – June '26",
+      "notes": "Courses: Reinforcement Learning, Machine Learning, Deep Learning, Algorithms, Computer Vision, Data-Intensive Computing, Pattern Recognition, Numerical Mathematics"
+      "gpa" : "3.59"
     },
     {
-      "degree": "B.E. Computer Engineering",
-      "school": "University of Pune",
-      "dates": "2015 – 2019",
-      "notes": "Gold medalist. Specialisation in Information Security."
+      "degree": "B.Tech. Computer Science",
+      "school": "SRM Institute of Science and Technology",
+      "dates": "2017 – 2021",
+      "notes": [
+        "Courses: Machine Learning, Computational Linguistics, Algorithms, Database Systems, Data Structures, Probability",      
+      ]
     }
   ],
   "skills": {
-    "Languages": ["Python", "TypeScript", "SQL", "Go", "Bash"],
-    "Frameworks": ["FastAPI", "Django", "React", "Astro", "Airflow"],
-    "AI/ML": ["PyTorch", "Transformers", "LangChain", "OpenAI API", "FAISS", "Sentence-Transformers"],
-    "Tools": ["Docker", "Kubernetes", "Kafka", "Delta Lake", "PostgreSQL", "Redis", "GitHub Actions"]
+    "Languages": ["Python (Advanced)", "SQL", "Java"],
+    "AI/ML": ["PyTorch", "TensorFlow", "Scikit-learn", "XGBoost", "HuggingFace", "Transformers", "Semantic Similarity", "Embedding-based retrieval", "Gymnasium, Experience", "Replay", "Target Networks", "PettingZoo"],
+    "Data" : ["PySpark", "Pandas", "NumPy", "Seaborn", "MLflow", "Streamlit", "ETL pipelines", "Databricks", "Statistical Modeling", "EDA"],
+    "LLM/GenAI": ["Google ADK", "RAG", "LangChain", "LangGraph", "MCP", "Prompt Engineering", "Model Fine-Tuning", "OCR"],
+    "Infrastructure": ["Docker", "Kubernetes", "PostgreSQL", "GitHub", "CI/CD", "Linux (RHEL)", "REST APIs", "AWS", "Azure" ],
+    "Methods" : ["Classification", "Clustering", "Regression", "NLP", "Feature Engineering", "Multimodal Data Processing", "Statistical Analysis"]
   },
   "certifications": [
-    { "name": "AWS Certified Solutions Architect – Associate", "issuer": "Amazon Web Services", "year": 2022 },
-    { "name": "Deep Learning Specialization", "issuer": "Coursera / DeepLearning.AI", "year": 2021 }
+    { "name": "Machine Learning Specialization", "issuer": "Coursera / DeepLearning.AI", "year": 2019 },
+    { "name": "RedHat Certified Engineer", "issuer": "Amazon Web Services", "year": 2018 },    
   ]
 }
