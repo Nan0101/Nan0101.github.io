@@ -58,3 +58,22 @@ body {
   color: var(--fg);
   transition: background-color 200ms, color 200ms;
 }
+
+/* Personal — Archive */
+:root {
+  --arch-parchment:  #F5F0E8;
+  --arch-cream:      #EEE8D5;
+  --arch-ink:        #1A0A00;
+  --arch-navy:       #0F1F35;
+  --arch-oxblood:    #7B1C1C;
+  --arch-gold:       #B8922A;
+  --arch-sovereign:  #D4A017;
+  --arch-leather:    #3D2B1F;
+  --arch-cipher:     #1E3A2F;
+  --arch-stone:      #6B6560;
+
+  --font-archive-display: 'Cormorant Garamond', 'EB Garamond', serif;
+  --font-archive-sans:    'Geist', system-ui, sans-serif;
+  --font-archive-mono:    'Geist Mono', monospace;
+  --font-archive-hand:    'Caveat', cursive;
+}

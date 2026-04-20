@@ -1,0 +1,107 @@
+---
+import PersonalLayout from '../../layouts/PersonalLayout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { page: 'books-anime' },  props: { label: 'books & anime',    emoji: '📚', note: 'tracking reads, recs, rewatches, and rabbit holes.' } },
+    { params: { page: 'hiking' },       props: { label: 'hiking & trails',   emoji: '🥾', note: 'trail logs, elevation stats, and the view that made it worth it.' } },
+    { params: { page: 'journal' },      props: { label: 'journal',           emoji: '✎',  note: 'notes, fragments, half-finished thoughts.' } },
+    { params: { page: 'kitchen' },      props: { label: 'kitchen',           emoji: '🍜', note: 'recipes with chaos ratings. mostly successful.' } },
+    { params: { page: 'japanese' },     props: { label: 'japanese study',    emoji: '日', note: 'JLPT log, vocab, kanji that surprised me.' } },
+    { params: { page: 'feminism' },     props: { label: 'feminism essays',   emoji: '✦',  note: 'longer writing. also on substack.' } },
+    { params: { page: 'guestbook' },    props: { label: 'guestbook',         emoji: '✉',  note: 'leave a note if you made it this far.' } },
+  ];
+}
+
+const { page } = Astro.params;
+const { label, emoji, note } = Astro.props;
+---
+
+<PersonalLayout title={`${label} — nannomnom`}>
+  <div class="stub-page">
+    <div class="stub-card">
+      <span class="stub-emoji" aria-hidden="true">{emoji}</span>
+      <h1 class="stub-title">{label}</h1>
+      <p class="stub-note">{note}</p>
+      <p class="stub-coming">coming soon ✦</p>
+      <a href="/shishin" class="back-link">← back to the apartment</a>
+    </div>
+  </div>
+</PersonalLayout>
+
+<style>
+  .stub-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: var(--space-8) var(--space-6);
+  }
+
+  .stub-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-4);
+    padding: var(--space-8) var(--space-7);
+    border: 1px solid rgba(109, 40, 217, 0.3);
+    border-radius: var(--radius-lg);
+    background: rgba(27, 11, 46, 0.5);
+    backdrop-filter: blur(8px);
+    max-width: 440px;
+    width: 100%;
+  }
+
+  .stub-emoji {
+    font-size: 2.5rem;
+    line-height: 1;
+    display: block;
+  }
+
+  .stub-title {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    color: var(--nebula-glow);
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .stub-note {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    color: var(--nebula-mist);
+    opacity: 0.7;
+    margin: 0;
+    line-height: 1.5;
+    max-width: 32ch;
+  }
+
+  .stub-coming {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--nebula-magenta);
+    margin: var(--space-2) 0 0;
+    opacity: 0.8;
+  }
+
+  .back-link {
+    font-family: 'Caveat', cursive;
+    font-size: 1.05rem;
+    color: var(--nebula-mist);
+    opacity: 0.5;
+    text-decoration: none;
+    margin-top: var(--space-1);
+    transition: opacity 0.15s;
+  }
+
+  .back-link:hover { opacity: 1; }
+
+  .back-link:focus-visible {
+    outline: 2px solid var(--nebula-glow);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+</style>

@@ -1,22 +1,520 @@
 ---
 import PersonalLayout from '../../layouts/PersonalLayout.astro';
+import HorizontalScroll from '../../components/personal/HorizontalScroll.tsx';
+import ArchivePanel from '../../components/personal/ArchivePanel.tsx';
+import CipherReveal from '../../components/personal/CipherReveal.tsx';
+import FibonacciSpiral from '../../components/personal/symbols/FibonacciSpiral.tsx';
+import AllSeeingEye from '../../components/personal/symbols/AllSeeingEye.tsx';
+import SacredGeometry from '../../components/personal/symbols/SacredGeometry.tsx';
+import RoseCross from '../../components/personal/symbols/RoseCross.tsx';
+import CheckeredFloor from '../../components/personal/symbols/CheckeredFloor.tsx';
+import AlchemySymbols from '../../components/personal/symbols/AlchemySymbols.tsx';
+import PrioryFleurDeLis from '../../components/personal/symbols/PrioryFleurDeLis.tsx';
+import CapitolDome from '../../components/personal/symbols/CapitolDome.tsx';
+
+const files = [
+  { num: '001', name: 'BOOKS & ANIME',  teaser: 'what the archives contain',       status: 'ACTIVE',      href: '/shishin/books-anime', panelIdx: 2 },
+  { num: '002', name: 'JAPANESE',       teaser: '日本語の暗号を解読する',              status: 'ACTIVE',      href: '/shishin/japanese',    panelIdx: 3 },
+  { num: '003', name: 'HIKING',         teaser: 'coordinates of the unmarked path', status: 'ACTIVE',      href: '/shishin/hiking',       panelIdx: 4 },
+  { num: '004', name: 'KITCHEN',        teaser: 'classified recipes of chaos',      status: 'ACTIVE',      href: '/shishin/kitchen',      panelIdx: 5 },
+  { num: '005', name: 'JOURNAL',        teaser: 'encoded dispatches from the field',status: 'ONGOING',     href: '/shishin/journal',      panelIdx: 6 },
+  { num: '006', name: 'FEMINISM',       teaser: 'the documents they burned',        status: 'ACTIVE',      href: '/shishin/feminism',     panelIdx: 7 },
+  { num: '007', name: 'VINYL',          teaser: 'frequencies beyond the cipher',   status: 'ONGOING',     href: '#',                     panelIdx: 8 },
+  { num: '008', name: 'GUESTBOOK',      teaser: 'sign the visitors register',       status: 'CLASSIFIED',  href: '/shishin/guestbook',    panelIdx: 9 },
+];
+
+const hobbies = [
+  { name: 'BOOKS & ANIME', jp: '本とアニメ', href: '/shishin/books-anime', color: 'var(--arch-oxblood)',  tags: ['FICTION', 'MANGA', 'SCI-FI', 'SHONEN'], tagline: 'every story is a secret society', bg: 'parchment' as const },
+  { name: 'JAPANESE',      jp: '日本語',     href: '/shishin/japanese',    color: 'var(--arch-cipher)',   tags: ['JLPT', 'KANJI', 'IMMERSION'],           tagline: 'the language is the code',         bg: 'cream' as const    },
+  { name: 'HIKING',        jp: 'ハイキング',  href: '/shishin/hiking',      color: 'var(--arch-leather)',  tags: ['TRAILS', 'ELEVATION', 'NATURE'],         tagline: 'the map is never the territory',   bg: 'parchment' as const },
+  { name: 'KITCHEN',       jp: '台所',       href: '/shishin/kitchen',     color: 'var(--arch-oxblood)',  tags: ['RECIPES', 'CHAOS', 'EXPERIMENTS'],       tagline: 'cooking is applied alchemy',       bg: 'cream' as const    },
+  { name: 'JOURNAL',       jp: 'ジャーナル',  href: '/shishin/journal',     color: 'var(--arch-gold)',     tags: ['WRITING', 'DISPATCHES', 'MEMORY'],      tagline: 'words as evidence',                bg: 'parchment' as const },
+  { name: 'FEMINISM',      jp: 'フェミニズム', href: '/shishin/feminism',    color: 'var(--arch-cipher)',   tags: ['ESSAYS', 'THEORY', 'PRAXIS'],           tagline: 'the archive of what was erased',   bg: 'cream' as const    },
+  { name: 'VINYL',         jp: 'レコード',    href: '#',                    color: 'var(--arch-leather)',  tags: ['AMBIENT', 'JAZZ', 'CITY-POP'],          tagline: 'every groove a hidden message',    bg: 'parchment' as const },
+];
 ---
 
-<PersonalLayout title="you found the passage — nannomnom">
-  <div class="passage-message">
-    <p>you found the passage</p>
-  </div>
+<PersonalLayout title="The Archive — nannomnom">
+  <HorizontalScroll client:load snapEnabled={true}>
+
+    {/* PANEL 1 — The Threshold */}
+    <ArchivePanel client:load bg="navy" panelIndex={0}>
+      <div class="panel panel-threshold">
+        {/* Ambient symbols */}
+        <div class="sym sym-eye"><AllSeeingEye client:load size={90} color="var(--arch-gold)" opacity={0.12} /></div>
+        <div class="sym sym-geo"><SacredGeometry client:load size={160} color="var(--arch-sovereign)" opacity={0.07} /></div>
+
+        {/* Fibonacci spiral — large, centered */}
+        <div class="threshold-spiral">
+          <FibonacciSpiral client:load size={320} color="var(--arch-gold)" opacity={0.2} />
+        </div>
+
+        <div class="threshold-text">
+          <CipherReveal client:load mode="scroll-reform" text="YOU HAVE FOUND THE ARCHIVE" className="threshold-headline" />
+          <p class="threshold-sub">every person is a library. some rooms are locked.</p>
+          <div class="threshold-cue">
+            <span class="cue-arrow">→</span>
+            <span class="cue-label">PROCEED</span>
+          </div>
+        </div>
+      </div>
+    </ArchivePanel>
+
+    {/* PANEL 2 — Index of Contents */}
+    <ArchivePanel client:load bg="parchment" panelIndex={1}>
+      <div class="panel panel-index">
+        {/* Ambient */}
+        <div class="sym sym-check-bottom">
+          <CheckeredFloor client:load width={500} height={60} opacity={0.06} tileSize={18} />
+        </div>
+        <div class="sym sym-wax-corner">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <circle cx="32" cy="32" r="28" fill="var(--arch-oxblood)" opacity="0.9" />
+            <circle cx="32" cy="32" r="22" stroke="var(--arch-parchment)" stroke-width="0.8" fill="none" opacity="0.5" />
+            <text x="32" y="36" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="8" letter-spacing="0.05em" fill="var(--arch-parchment)" opacity="0.8">ARCHIVE</text>
+          </svg>
+        </div>
+
+        <div class="index-inner">
+          <p class="index-stamp">CLASSIFIED CONTENTS</p>
+          <div class="index-rule" />
+          <ol class="index-list" role="list">
+            {files.map((f) => (
+              <li class="index-row" role="listitem">
+                <button
+                  class="index-file-btn"
+                  onclick={`window.__archiveScrollTo && window.__archiveScrollTo(${f.panelIdx})`}
+                  aria-label={`Jump to ${f.name}`}
+                >
+                  <span class="file-num">FILE {f.num}</span>
+                  <span class="file-rule" />
+                  <span class="file-name">{f.name}</span>
+                  <span class="file-rule" />
+                  <span class="file-teaser">{f.teaser}</span>
+                  <span class="file-rule" />
+                  <span class={`file-status status-${f.status.toLowerCase()}`}>{f.status}</span>
+                </button>
+              </li>
+            ))}
+          </ol>
+          <div class="index-rule" />
+        </div>
+      </div>
+    </ArchivePanel>
+
+    {/* PANELS 3–9 — Hobby panels */}
+    {hobbies.map((h, i) => (
+      <ArchivePanel client:load bg={h.bg} panelIndex={i + 2}>
+        <div class="panel panel-hobby">
+          {/* Symbol decoration — alternating */}
+          {i % 3 === 0 && <div class="sym sym-hobby-a"><RoseCross client:load size={100} color={h.color} opacity={0.1} /></div>}
+          {i % 3 === 1 && <div class="sym sym-hobby-b"><AlchemySymbols client:load size={140} color={h.color} opacity={0.1} /></div>}
+          {i % 3 === 2 && <div class="sym sym-hobby-c"><PrioryFleurDeLis client:load size={80} color={h.color} opacity={0.1} /></div>}
+
+          <div class="hobby-inner">
+            <div class="hobby-jp" style={`color: ${h.color}`}>{h.jp}</div>
+            <h2 class="hobby-name">
+              <CipherReveal client:load mode="atbash" text={h.name} />
+            </h2>
+            <div class="hobby-tags" aria-label="tags">
+              {h.tags.map(tag => <span class="hobby-tag">{tag}</span>)}
+            </div>
+            <p class="hobby-tagline">{h.tagline}</p>
+            <a href={h.href} class="hobby-enter" aria-label={`Enter ${h.name} section`}>
+              <span>ENTER</span>
+              <span class="enter-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </ArchivePanel>
+    ))}
+
+    {/* PANEL 10 — Guestbook */}
+    <ArchivePanel client:load bg="navy" panelIndex={9}>
+      <div class="panel panel-guestbook">
+        <div class="sym sym-dome"><CapitolDome client:load size={180} color="var(--arch-gold)" opacity={0.1} /></div>
+
+        <div class="guestbook-inner">
+          <p class="gb-label">VISITORS REGISTER</p>
+          <h2 class="gb-title">
+            <CipherReveal client:load mode="scroll-reform" text="SIGN THE REGISTER" className="gb-headline" />
+          </h2>
+          <p class="gb-sub">leave your mark in the archive</p>
+          <a href="/shishin/guestbook" class="gb-cta">
+            OPEN THE REGISTER →
+          </a>
+        </div>
+      </div>
+    </ArchivePanel>
+
+  </HorizontalScroll>
 </PersonalLayout>
 
 <style>
-  .passage-message {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-    font-family: var(--font-hand);
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    text-align: center;
-    color: var(--nebula-mist);
+/* ── Shared panel shell ── */
+.panel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 64px 40px;
+  box-sizing: border-box;
+}
+
+/* ── Symbol positions ── */
+.sym {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+.sym-eye      { top: 8%; right: 6%; }
+.sym-geo      { bottom: 5%; left: 4%; }
+.sym-check-bottom { bottom: 0; left: 0; right: 0; width: 100%; }
+.sym-wax-corner { bottom: 32px; right: 40px; }
+.sym-hobby-a  { top: 10%; right: 8%; }
+.sym-hobby-b  { bottom: 12%; left: 6%; }
+.sym-hobby-c  { top: 8%; left: 8%; }
+.sym-dome     { bottom: 0; left: 50%; transform: translateX(-50%); }
+
+/* ── Panel 1: Threshold ── */
+.panel-threshold { flex-direction: column; }
+
+.threshold-spiral {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.threshold-text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+:global(.threshold-headline) {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--arch-parchment);
+  line-height: 1.1;
+}
+
+.threshold-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--arch-parchment);
+  opacity: 0.65;
+  margin: 0;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+.threshold-cue {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.cue-arrow {
+  font-size: 1.2rem;
+  color: var(--arch-gold);
+  animation: cue-pulse 1.8s ease-in-out infinite;
+}
+
+.cue-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--arch-gold);
+  text-transform: uppercase;
+}
+
+@keyframes cue-pulse {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50% { transform: translateX(6px); opacity: 1; }
+}
+
+/* ── Panel 2: Index ── */
+.panel-index { align-items: flex-start; }
+
+.index-inner {
+  width: min(700px, 90%);
+  position: relative;
+  z-index: 2;
+}
+
+.index-stamp {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--arch-oxblood);
+  margin: 0 0 16px;
+}
+
+.index-rule {
+  height: 1px;
+  background: color-mix(in srgb, var(--arch-leather) 40%, transparent);
+  margin-bottom: 8px;
+}
+
+.index-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.index-row { border-bottom: 1px solid color-mix(in srgb, var(--arch-leather) 20%, transparent); }
+
+.index-file-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px 0;
+  text-align: left;
+  transition: background 0.15s;
+  color: var(--arch-ink);
+}
+
+.index-file-btn:hover { background: color-mix(in srgb, var(--arch-gold) 8%, transparent); }
+.index-file-btn:focus-visible { outline: 2px solid var(--arch-gold); outline-offset: 2px; }
+
+.file-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--arch-gold);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.file-rule {
+  height: 1px;
+  flex: 1;
+  min-width: 12px;
+  background: color-mix(in srgb, var(--arch-leather) 30%, transparent);
+}
+
+.file-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--arch-ink);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.file-teaser {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--arch-stone);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 2;
+}
+
+.file-status {
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid;
+  padding: 2px 7px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.status-active     { color: var(--arch-cipher); border-color: var(--arch-cipher); }
+.status-ongoing    { color: var(--arch-gold); border-color: var(--arch-gold); }
+.status-classified { color: var(--arch-oxblood); border-color: var(--arch-oxblood); }
+
+/* ── Hobby panels ── */
+.panel-hobby { align-items: flex-start; }
+
+.hobby-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 560px;
+}
+
+.hobby-jp {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  opacity: 0.15;
+  pointer-events: none;
+  position: absolute;
+  top: -20px;
+  left: -4px;
+}
+
+.hobby-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  color: var(--arch-ink);
+  margin: 0;
+  padding-top: 64px;
+}
+
+.hobby-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hobby-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--arch-stone);
+  border: 1px solid color-mix(in srgb, var(--arch-stone) 40%, transparent);
+  padding: 2px 8px;
+}
+
+.hobby-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--arch-leather);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 380px;
+}
+
+.hobby-enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--arch-gold);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--arch-gold) 40%, transparent);
+  padding-bottom: 4px;
+  transition: color 0.15s, border-color 0.15s;
+  width: fit-content;
+  margin-top: 8px;
+}
+
+.hobby-enter:hover { color: var(--arch-sovereign); border-color: var(--arch-sovereign); }
+.hobby-enter:focus-visible { outline: 2px solid var(--arch-gold); outline-offset: 3px; }
+
+.enter-arrow { transition: transform 0.2s; }
+.hobby-enter:hover .enter-arrow { transform: translateX(4px); }
+
+/* ── Guestbook panel ── */
+.panel-guestbook { flex-direction: column; }
+
+.guestbook-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.gb-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--arch-stone);
+  margin: 0;
+}
+
+:global(.gb-headline) {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--arch-parchment);
+  line-height: 1.1;
+}
+
+.gb-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--arch-parchment);
+  opacity: 0.5;
+  margin: 0;
+}
+
+.gb-cta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--arch-gold);
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, var(--arch-gold) 50%, transparent);
+  padding: 10px 24px;
+  transition: background 0.15s, color 0.15s;
+  margin-top: 8px;
+}
+
+.gb-cta:hover {
+  background: color-mix(in srgb, var(--arch-gold) 15%, transparent);
+  color: var(--arch-sovereign);
+}
+
+.gb-cta:focus-visible { outline: 2px solid var(--arch-gold); outline-offset: 3px; }
+
+/* ── Mobile fallback ── */
+@media (max-width: 767px) {
+  .panel {
+    min-height: 100svh;
+    padding: 80px 24px 40px;
+    align-items: flex-start;
   }
+
+  .panel-threshold { align-items: center; justify-content: center; }
+  .panel-guestbook { align-items: center; justify-content: center; }
+
+  .threshold-spiral { display: none; }
+  .hobby-jp { font-size: 3rem; top: -10px; opacity: 0.1; }
+  .hobby-name { padding-top: 48px; }
+
+  .index-inner { width: 100%; }
+  .file-teaser { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cue-arrow { animation: none; }
+}
 </style>

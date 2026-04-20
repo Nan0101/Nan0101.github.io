@@ -1,0 +1,71 @@
+---
+interface Props {
+  color: string;
+  rotation?: number;
+  opacity?: number;
+  pattern?: 'dots' | 'stripes' | 'solid';
+  width?: number;
+  height?: number;
+  x: string;
+  y: string;
+}
+const {
+  color,
+  rotation = 0,
+  opacity = 0.6,
+  pattern = 'solid',
+  width = 120,
+  height = 22,
+  x,
+  y,
+} = Astro.props;
+
+const patternId = `wp-${Math.random().toString(36).slice(2, 7)}`;
+---
+
+<div
+  class="washi"
+  style={`
+    position: absolute;
+    left: ${x};
+    top: ${y};
+    transform: rotate(${rotation}deg);
+    pointer-events: none;
+    z-index: 18;
+    opacity: ${opacity};
+  `}
+  aria-hidden="true"
+>
+  <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      {pattern === 'dots' && (
+        <pattern id={patternId} x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+          <rect width="8" height="8" fill={color} />
+          <circle cx="4" cy="4" r="1.5" fill="rgba(255,255,255,0.35)" />
+        </pattern>
+      )}
+      {pattern === 'stripes' && (
+        <pattern id={patternId} x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <rect width="8" height="8" fill={color} />
+          <rect x="0" y="0" width="4" height="8" fill="rgba(255,255,255,0.2)" />
+        </pattern>
+      )}
+    </defs>
+    <rect
+      width={width}
+      height={height}
+      rx="2"
+      fill={pattern === 'solid' ? color : `url(#${patternId})`}
+    />
+    {/* torn-edge left */}
+    <path
+      d={`M0 0 Q4 ${height/2} 0 ${height}`}
+      fill="rgba(0,0,0,0.08)"
+    />
+    {/* torn-edge right */}
+    <path
+      d={`M${width} 0 Q${width-4} ${height/2} ${width} ${height}`}
+      fill="rgba(0,0,0,0.08)"
+    />
+  </svg>
+</div>
