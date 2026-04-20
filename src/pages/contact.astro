@@ -1,0 +1,316 @@
+---
+import ProLayout from '../layouts/ProLayout.astro';
+import SocialLinks from '../components/SocialLinks.tsx';
+
+const sent = Astro.url.searchParams.get('sent') === 'true';
+---
+
+<ProLayout title="Contact — nannomnom">
+  <section class="contact-page">
+    <header class="page-header">
+      <h1 class="page-title">Get in touch</h1>
+    </header>
+
+    {sent ? (
+      <div class="thankyou-card">
+        <span class="thankyou-icon" aria-hidden="true">✦</span>
+        <h2 class="thankyou-heading">Message received.</h2>
+        <p class="thankyou-body">Thanks for reaching out — I'll get back to you soon.</p>
+        <a href="/" class="thankyou-home">← Back home</a>
+      </div>
+    ) : (
+      <div class="contact-layout">
+        <div class="contact-left">
+          <p class="contact-intro">
+            Best for opportunities, collabs, or a simple hello.
+          </p>
+          <p class="contact-note">
+            I typically respond within a couple of days. Recruiters welcome — please include role and company in the Purpose line.
+          </p>
+          <div class="social-rail">
+            <SocialLinks client:load />
+          </div>
+        </div>
+
+        <div class="contact-right">
+          <form
+            method="POST"
+            action="https://formsubmit.co/nandini_soni1310@yahoo.com"
+            class="contact-form"
+          >
+            <input type="hidden" name="_subject" value="New message from nannomnom.github.io" />
+            <input type="hidden" name="_next" value="https://nan0101.github.io/contact?sent=true" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+
+            <div class="field">
+              <label for="name" class="field-label">Name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                class="field-input"
+                required
+                autocomplete="name"
+                placeholder="Your name"
+              />
+            </div>
+
+            <div class="field">
+              <label for="email" class="field-label">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                class="field-input"
+                required
+                autocomplete="email"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <div class="field">
+              <label for="purpose" class="field-label">Purpose</label>
+              <select id="purpose" name="purpose" class="field-input field-select" required>
+                <option value="" disabled selected>Select one…</option>
+                <option value="Recruiting">Recruiting</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="message" class="field-label">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                class="field-input field-textarea"
+                required
+                rows="5"
+                placeholder="What's on your mind?"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">
+              Send message
+            </button>
+          </form>
+        </div>
+      </div>
+    )}
+  </section>
+</ProLayout>
+
+<script>
+  const btn = document.getElementById('submit-btn');
+  if (btn) {
+    btn.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = (btn as HTMLElement).getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) * 0.25;
+      const dy = (e.clientY - cy) * 0.25;
+      (btn as HTMLElement).style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      (btn as HTMLElement).style.transform = 'translate(0, 0)';
+    });
+  }
+</script>
+
+<style>
+  .contact-page {
+    padding: var(--space-8);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    margin-bottom: var(--space-7);
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  .contact-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding-top: var(--space-2);
+  }
+
+  .contact-intro {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    line-height: 1.65;
+    opacity: 0.9;
+    margin: 0;
+  }
+
+  .contact-note {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    opacity: 0.55;
+    margin: 0;
+  }
+
+  .social-rail {
+    margin-top: var(--space-2);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .field-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.55;
+  }
+
+  .field-input {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: var(--space-3) var(--space-3);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    color: var(--fg);
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .field-input::placeholder { opacity: 0.35; }
+
+  .field-input:focus {
+    outline: none;
+    border-color: var(--nebula-violet);
+  }
+
+  .field-input:focus-visible {
+    outline: 2px solid var(--nebula-violet);
+    outline-offset: 2px;
+  }
+
+  .field-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: var(--space-7);
+  }
+
+  .field-textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+  }
+
+  .submit-btn {
+    align-self: flex-start;
+    padding: var(--space-3) var(--space-6);
+    background: var(--nebula-violet);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s;
+    will-change: transform;
+  }
+
+  .submit-btn:hover { opacity: 0.9; }
+
+  .submit-btn:focus-visible {
+    outline: 2px solid var(--nebula-violet);
+    outline-offset: 3px;
+  }
+
+  /* Thank-you card */
+  .thankyou-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-4);
+    padding: var(--space-10) var(--space-6);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .thankyou-icon {
+    font-size: 2rem;
+    color: var(--nebula-violet);
+    line-height: 1;
+  }
+
+  .thankyou-heading {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .thankyou-body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    opacity: 0.65;
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  .thankyou-home {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--fg);
+    opacity: 0.5;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .thankyou-home:hover { opacity: 1; }
+
+  .thankyou-home:focus-visible {
+    outline: 2px solid var(--nebula-violet);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (max-width: 768px) {
+    .contact-page { padding: var(--space-6); }
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-7);
+    }
+  }
+</style>

@@ -6,6 +6,8 @@ interface Props {
   hi?: string;
   gu?: string;
   ja?: string;
+  ta?: string;
+  ru?: string;
 }
 
 const FONTS = [
@@ -13,6 +15,8 @@ const FONTS = [
   'var(--font-devanagari)',
   'var(--font-gujarati)',
   'var(--font-japanese)',
+  'var(--font-tamil)',
+  'var(--font-cyrillic)',
 ];
 
 export default function NameCycle({
@@ -23,7 +27,7 @@ export default function NameCycle({
   ta = 'நந்தினி',
   ru = 'Нандини'
 }: Props) {
-  const scripts = [en, hi, gu, ja];
+  const scripts = [en, hi, gu, ja, ta, ru];
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 

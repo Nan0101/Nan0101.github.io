@@ -1,0 +1,63 @@
+{
+  "summary": "Software Engineer with a focus on AI/ML systems, data pipelines, and language-aware applications. Experienced in building production-grade backends, semantic search infrastructure, and LLM-powered products. Comfortable across the stack — from GPU clusters to React — with a particular interest in how language models reason and fail.",
+  "experience": [
+    {
+      "role": "Software Engineer II — AI/ML",
+      "company": "Acme Systems",
+      "dates": "2023 – Present",
+      "location": "Buffalo, NY (Hybrid)",
+      "bullets": [
+        "Designed and shipped a context-aware RAG pipeline serving 10k+ daily queries at sub-200ms p95 latency.",
+        "Reduced embedding index rebuild time by 68% through chunking strategy and incremental upsert logic.",
+        "Led evaluation framework for LLM output quality across 5 product verticals; drove prompt iteration cycles.",
+        "Mentored 2 junior engineers through biweekly code reviews and architectural walkthroughs."
+      ]
+    },
+    {
+      "role": "Software Engineer — Data Platform",
+      "company": "Meridian Analytics",
+      "dates": "2021 – 2023",
+      "location": "Remote",
+      "bullets": [
+        "Built a real-time data pipeline ingesting 2M events/day using Kafka, Flink, and Delta Lake.",
+        "Migrated legacy ETL jobs from bash + cron to Airflow DAGs, cutting failure rate from 12% to 0.4%.",
+        "Authored internal Python SDK adopted by 8 engineering teams for data access and schema validation.",
+        "Partnered with ML team to productionize 3 classifiers (precision ≥ 0.91) via FastAPI microservices."
+      ]
+    },
+    {
+      "role": "Software Engineer Intern",
+      "company": "Cascade Labs",
+      "dates": "Summer 2020",
+      "location": "San Francisco, CA",
+      "bullets": [
+        "Built a full-stack admin dashboard (React + Django) for managing ML training job queues.",
+        "Implemented a lightweight feature flag system used across 4 internal services by end of internship."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "M.S. Computer Science — Machine Learning track",
+      "school": "University at Buffalo (SUNY)",
+      "dates": "2019 – 2021",
+      "notes": "Thesis: Multilingual Entity Linking in Low-Resource Settings. GPA 3.9."
+    },
+    {
+      "degree": "B.E. Computer Engineering",
+      "school": "University of Pune",
+      "dates": "2015 – 2019",
+      "notes": "Gold medalist. Specialisation in Information Security."
+    }
+  ],
+  "skills": {
+    "Languages": ["Python", "TypeScript", "SQL", "Go", "Bash"],
+    "Frameworks": ["FastAPI", "Django", "React", "Astro", "Airflow"],
+    "AI/ML": ["PyTorch", "Transformers", "LangChain", "OpenAI API", "FAISS", "Sentence-Transformers"],
+    "Tools": ["Docker", "Kubernetes", "Kafka", "Delta Lake", "PostgreSQL", "Redis", "GitHub Actions"]
+  },
+  "certifications": [
+    { "name": "AWS Certified Solutions Architect – Associate", "issuer": "Amazon Web Services", "year": 2022 },
+    { "name": "Deep Learning Specialization", "issuer": "Coursera / DeepLearning.AI", "year": 2021 }
+  ]
+}

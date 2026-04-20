@@ -1,0 +1,246 @@
+---
+import ProLayout from '../layouts/ProLayout.astro';
+
+interface SubstackPost {
+  title: string;
+  date: string;
+  excerpt: string;
+  url: string;
+}
+
+function parseRSS(xml: string): SubstackPost[] {
+  const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)];
+  return items.map(([, block]) => {
+    const get = (tag: string) => {
+      const m = block.match(new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>|<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`));
+      return m ? (m[1] ?? m[2] ?? '').trim() : '';
+    };
+    const rawExcerpt = get('description')
+      .replace(/<[^>]+>/g, '')
+      .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').replace(/&#\d+;/g, '')
+      .trim()
+      .slice(0, 200);
+    const excerpt = rawExcerpt.length === 200 ? rawExcerpt + '…' : rawExcerpt;
+    const rawDate = get('pubDate');
+    const date = rawDate ? new Date(rawDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+    return { title: get('title'), date, excerpt, url: get('link') };
+  }).filter(p => p.title && p.url);
+}
+
+let posts: SubstackPost[] = [];
+let fetchFailed = false;
+try {
+  const res = await fetch('https://nannomnom.substack.com/feed', { signal: AbortSignal.timeout(6000) });
+  if (res.ok) {
+    const xml = await res.text();
+    posts = parseRSS(xml).slice(0, 5);
+  } else {
+    fetchFailed = true;
+  }
+} catch {
+  fetchFailed = true;
+}
+---
+
+<ProLayout title="Blog — nannomnom">
+  <section class="blog-page">
+    <header class="page-header">
+      <h1 class="page-title">Writing</h1>
+    </header>
+
+    <a href="https://nannomnom.substack.com" target="_blank" rel="noopener noreferrer" class="substack-card">
+      <div class="substack-inner">
+        <div class="substack-text">
+          <span class="substack-label">I write on Substack</span>
+          <span class="substack-desc">Essays on AI, language, building things, and whatever else is in my head.</span>
+        </div>
+        <span class="substack-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    {posts.length > 0 ? (
+      <div class="posts-list">
+        <h2 class="posts-heading">Latest posts</h2>
+        {posts.map(post => (
+          <a href={post.url} target="_blank" rel="noopener noreferrer" class="post-card">
+            <div class="post-meta">
+              <span class="post-date">{post.date}</span>
+            </div>
+            <h3 class="post-title">{post.title}</h3>
+            {post.excerpt && <p class="post-excerpt">{post.excerpt}</p>}
+            <span class="post-cta">Read on Substack →</span>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p class="fallback-text">
+        Head to <a href="https://nannomnom.substack.com" target="_blank" rel="noopener noreferrer">Substack</a> for the latest.
+      </p>
+    )}
+  </section>
+</ProLayout>
+
+<style>
+  .blog-page {
+    padding: var(--space-8);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .substack-card {
+    display: block;
+    padding: var(--space-5) var(--space-6);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s;
+    margin-bottom: var(--space-8);
+  }
+
+  .substack-card:hover {
+    border-color: var(--nebula-violet);
+  }
+
+  .substack-card:focus-visible {
+    outline: 2px solid var(--nebula-violet);
+    outline-offset: 3px;
+  }
+
+  .substack-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .substack-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .substack-label {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .substack-desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    opacity: 0.6;
+    line-height: 1.5;
+    max-width: 42ch;
+  }
+
+  .substack-arrow {
+    font-size: 1.4rem;
+    opacity: 0.4;
+    flex-shrink: 0;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+
+  .substack-card:hover .substack-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  .posts-heading {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--nebula-violet);
+    margin: 0 0 var(--space-5);
+  }
+
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .post-card {
+    display: block;
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.15s;
+  }
+
+  .post-card:first-of-type { border-top: 1px solid var(--line); }
+
+  .post-card:hover { opacity: 0.75; }
+
+  .post-card:focus-visible {
+    outline: 2px solid var(--nebula-violet);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  .post-meta {
+    margin-bottom: var(--space-2);
+  }
+
+  .post-date {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.45;
+  }
+
+  .post-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--space-2);
+    line-height: 1.35;
+  }
+
+  .post-excerpt {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    opacity: 0.65;
+    margin: 0 0 var(--space-3);
+  }
+
+  .post-cta {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--nebula-violet);
+  }
+
+  .fallback-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    opacity: 0.65;
+    line-height: 1.7;
+  }
+
+  .fallback-text a {
+    color: var(--nebula-violet);
+  }
+
+  @media (max-width: 600px) {
+    .blog-page { padding: var(--space-6); }
+    .substack-inner { flex-direction: column; align-items: flex-start; }
+    .substack-arrow { display: none; }
+  }
+</style>

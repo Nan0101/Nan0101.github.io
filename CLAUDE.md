@@ -37,6 +37,11 @@ src/
     AmbientAudio.tsx       (pending) Personal-side audio control
   pages/
     index.astro            Pro homepage: hero + featured projects
+    resume.astro           Résumé viewer (imports resume.json, print stylesheet)
+    leadership.astro       Leadership card grid (content collection)
+    blog.astro             Blog page (Substack intro + build-time RSS feed, max 5 posts)
+    contact.astro          Contact form (formsubmit.co, ?sent=true thank-you card)
+    404.astro              404 page with home link + cat hint
     projects/
       index.astro          Projects listing with tag filter
       [slug].astro         Case study template
@@ -47,7 +52,11 @@ src/
       semantic-search.md
       context-aware-rag.md
       data-pipeline-viz.md
-  content.config.ts        Astro 6 content layer config (glob loader)
+    leadership/            .md files — one per role
+      swe-mentor.md
+      ai-club.md
+    resume.json            Resume data (summary, experience, education, skills, certifications)
+  content.config.ts        Astro 6 content layer config (glob loader — projects + leadership)
   config/
     site.ts                (pending) Single source of truth: handle, socials, secretSlug, nameScripts
   i18n/
@@ -119,7 +128,7 @@ Config: `src/content.config.ts` (Astro 6 glob loader, not legacy `src/content/co
 projects:        title, slug, year, tags[], stack[], summary, thumbnail?, hero?,
                  problem, approach, outcome, links[]?, featured, github?, demo?, metrics[]?
 
-leadership:      role, org, dates, impact[], photo?
+leadership:      role, org, dates, impact[], photo?   ✓ seeded (swe-mentor, ai-club)
 japanese-log:    date, jlpt_target, learned[], interesting_kanji
 recipes:         name, inspiration, ingredients[], steps[], chaos_level (1-5),
                  outcome_photo?, verdict, date

@@ -23,4 +23,15 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { projects };
+const leadership = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/leadership' }),
+  schema: z.object({
+    role: z.string(),
+    org: z.string(),
+    dates: z.string(),
+    impact: z.array(z.string()),
+    photo: z.string().optional(),
+  }),
+});
+
+export const collections = { projects, leadership };

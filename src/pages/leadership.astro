@@ -1,0 +1,164 @@
+---
+import ProLayout from '../layouts/ProLayout.astro';
+import { getCollection } from 'astro:content';
+
+const roles = await getCollection('leadership');
+---
+
+<ProLayout title="Leadership — nannomnom">
+  <section class="leadership-page">
+    <header class="page-header">
+      <h1 class="page-title">Leadership & Volunteering</h1>
+      <p class="page-intro">Building communities, growing engineers, and giving back.</p>
+    </header>
+
+    <div class="cards-grid">
+      {roles.map(role => (
+        <article class="role-card">
+          {role.data.photo && (
+            <div class="card-photo">
+              <img
+                src={role.data.photo}
+                alt={role.data.org}
+                onerror="this.parentElement.style.display='none'"
+              />
+            </div>
+          )}
+          <div class="card-body">
+            <div class="card-header">
+              <h2 class="role-title">{role.data.role}</h2>
+              <div class="role-meta">
+                <span class="role-org">{role.data.org}</span>
+                <span class="role-dates">{role.data.dates}</span>
+              </div>
+            </div>
+            <ul class="impact-list">
+              {role.data.impact.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</ProLayout>
+
+<style>
+  .leadership-page {
+    padding: var(--space-8);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    margin-bottom: var(--space-7);
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: 0 0 var(--space-3);
+  }
+
+  .page-intro {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+  }
+
+  .role-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .role-card:hover {
+    border-color: var(--nebula-violet);
+  }
+
+  .card-photo {
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+    background: var(--paper-dim);
+  }
+
+  .card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-body {
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .role-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .role-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .role-org {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    opacity: 0.65;
+  }
+
+  .role-dates {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--nebula-violet);
+  }
+
+  .impact-list {
+    margin: 0;
+    padding-left: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .impact-list li {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    .leadership-page { padding: var(--space-6); }
+    .cards-grid { grid-template-columns: 1fr; }
+  }
+</style>
