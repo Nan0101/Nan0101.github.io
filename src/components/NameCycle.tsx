@@ -35,7 +35,7 @@ export default function NameCycle({
     if (intervalRef.current) return;
     intervalRef.current = setInterval(() => {
       setCurrent(prev => (prev + 1) % scripts.length);
-    }, 400);
+    }, 700);
   }
 
   function stop() {
