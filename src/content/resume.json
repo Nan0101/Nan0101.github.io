@@ -4,7 +4,7 @@
     {
       "role": "Software Engineer I A — Python",
       "company": "Bank of America",
-      "dates": "July '21 – Nove '24",
+      "dates": "July '21 – Nov '24",
       "location": "India",
       "bullets": [
         "Architected a Python-based three-tier data processing framework (ingestion→transformation→distribution) by migrating a legacy .NET system, integrating structured financial data from Bloomberg, Reuters, and internal sources.",
@@ -47,7 +47,7 @@
       "school": "SRM Institute of Science and Technology",
       "dates": "2017 – 2021",
       "notes": [
-        "Courses: Machine Learning, Computational Linguistics, Algorithms, Database Systems, Data Structures, Probability",      
+        "Courses: Machine Learning, Computational Linguistics, Algorithms, Database Systems, Data Structures, Probability"    
       ]
     }
   ],
@@ -61,6 +61,6 @@
   },
   "certifications": [
     { "name": "Machine Learning Specialization", "issuer": "Coursera / DeepLearning.AI", "year": 2019 },
-    { "name": "RedHat Certified Engineer", "issuer": "Amazon Web Services", "year": 2018 },    
+    { "name": "RedHat Certified Engineer", "issuer": "Amazon Web Services", "year": 2018 }   
   ]
 }
