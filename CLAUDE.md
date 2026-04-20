@@ -49,7 +49,7 @@ src/
       [page].astro         Archive section pages: books-anime, hiking, journal, kitchen, japanese, feminism, guestbook
   content/
     projects/              semantic-search.md, context-aware-rag.md, data-pipeline-viz.md
-    leadership/            swe-mentor.md, ai-club.md
+    leadership/            ee_spoc.md, grad_ambassador.md, esg_comms.md, iss_volunteer.md
     resume.json
   content.config.ts        Astro 6 glob loader (projects + leadership)
   config/
