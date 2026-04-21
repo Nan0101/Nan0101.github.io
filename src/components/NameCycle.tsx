@@ -55,7 +55,13 @@ export default function NameCycle({
       onMouseLeave={stop}
       onFocus={start}
       onBlur={stop}
-      style={{ display: 'inline-block', cursor: 'default', position: 'relative' }}
+      style={{ 
+        display: 'inline-block', 
+        cursor: 'default', 
+        position: 'relative',
+        minWidth: '15ch',
+        whiteSpace: 'nowrap',
+      }}
       aria-label={en}
     >
       <AnimatePresence mode="wait">
